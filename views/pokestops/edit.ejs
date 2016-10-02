@@ -1,23 +1,23 @@
 <% include ../partials/header %>
 <div class="container">
     <div class="row">
-        <h1 class="text-center">Create a New Campground</h1>
+        <h1 class="text-center">Edit <%= pokestop.name %></h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/campgrounds" method="post">
+            <form action="/pokestops/<%= pokestop._id %>?_method=PUT" method="post">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="name" placeholder="name">
+                    <input class="form-control" type="text" name="pokestop[name]" value="<%= pokestop.name %>" >
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="image" placeholder="image url">
+                    <input class="form-control" type="text" name="pokestop[image]" value="<%= pokestop.image %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="description" placeholder="description">
+                    <input class="form-control" type="text" name="pokestop[description]" value="<%= pokestop.description %>">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/campgrounds">Go Back</a>
+            <a href="/pokestops">Go Back</a>
         </div>
     </div>
 </div>

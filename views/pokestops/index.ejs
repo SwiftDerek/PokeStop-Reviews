@@ -3,23 +3,23 @@
 <div class="container">
     <header class="jumbotron">
         <div class="container">
-            <h1>Welcome to YelpCamp!</h1>
-            <p>View our hand-picked campgrounds from all over the world</p>
+            <h1>Welcome to PokeStop!</h1>
+            <p>View everyone's favorite PokeStops from all over the world</p>
             <p>
-                <a class="btn btn-primary btn-large" href="/campgrounds/new">Add New Campground</a>
+                <a class="btn btn-primary btn-large" href="/pokestops/new">Add New Pokestop</a>
             </p>
         </div>
     </header>
     <div class="row text-center" style="display: flex; flex-wrap: wrap;">
-        <% campgrounds.forEach(function(campground){ %>
+        <% pokestops.forEach(function(pokestop){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                    <img src="<%= campground.image %>">
+                    <img src="<%= pokestop.image %>">
                     <div class="caption">
-                        <h4><%= campground.name %></h4>
+                        <h4><%= pokestop.name %></h4>
                     </div>
                     <p>
-                        <a href="/campgrounds/<%=campground._id%>" class="btn btn-primary">More Info</a>
+                        <a href="/pokestops/<%=pokestop._id%>" class="btn btn-primary">More Info</a>
                     </p>
                 </div>
             </div>

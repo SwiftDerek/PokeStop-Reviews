@@ -1,16 +1,16 @@
 var middlewareObj = {};
-var Campground = require("../models/campground");
+var Pokestop = require("../models/pokestop");
 var Comment = require("../models/comment");
 
-middlewareObj.checkCampgroundOwnership = function(req, res, next){
+middlewareObj.checkPokestopOwnership = function(req, res, next){
     if(req.isAuthenticated()){
-        Campground.findById(req.params.id, function(err, foundCampground){
+        Pokestop.findById(req.params.id, function(err, foundPokestop){
             if(err){
-                req.flash("error", "Campground not found");
+                req.flash("error", "Pokestop not found");
                 res.redirect("back");
             } else {
-                // does user own campground
-                if(foundCampground.author.id.equals(req.user._id)) {
+                // does user own pokestop
+                if(foundPokestop.author.id.equals(req.user._id)) {
                     next();
                 } else {
                     req.flash("error", "You don't have permission to do that.");
@@ -30,7 +30,7 @@ middlewareObj.checkCommentsOwnership = function(req, res, next){
             if(err){
                 res.redirect("back");
             } else {
-                // does user own campground
+                // does user own pokestop
                 if(foundComment.author.id.equals(req.user._id)) {
                     next();
                 } else {

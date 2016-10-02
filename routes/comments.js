@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Campground = require("../models/campground");
+var Pokestop = require("../models/pokestop");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
@@ -10,23 +10,23 @@ var middleware = require("../middleware");
 
 //New Comments
 router.get("/new", middleware.isLoggedIn, function(req, res) {
-    // find campground by id
-    Campground.findById(req.params.id, function(err, campground){
+    // find pokestop by id
+    Pokestop.findById(req.params.id, function(err, pokestop){
         if(err){
             console.log(err);
         } else {
-            res.render("comments/new", {campground: campground})
+            res.render("comments/new", {pokestop: pokestop})
         }
     });
 });
 
 // Create Comments
 router.post("/", middleware.isLoggedIn, function(req, res){
-    // lookup campground using ID
-    Campground.findById(req.params.id, function(err, campground) {
+    // lookup pokestop using ID
+    Pokestop.findById(req.params.id, function(err, pokestop) {
         if(err){
             console.log(err);
-            res.redirect("/campgrounds");
+            res.redirect("/pokestops");
         } else {
             Comment.create(req.body.comment, function(err, comment){
                 if(err){
@@ -38,10 +38,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     comment.author.username = req.user.username;
                     // save comment
                     comment.save();
-                    campground.comments.push(comment);
-                    campground.save();
+                    pokestop.comments.push(comment);
+                    pokestop.save();
                     req.flash("success", "Added comment");
-                    res.redirect("/campgrounds/" + campground._id);
+                    res.redirect("/pokestops/" + pokestop._id);
                 }    
             });
         }
@@ -54,7 +54,7 @@ router.get("/:comment_id/edit", middleware.checkCommentsOwnership, function(req,
         if(err){
             res.redirect("back");
         } else {
-            res.render("comments/edit", {campground_id: req.params.id, comment: foundComment});
+            res.render("comments/edit", {pokestop_id: req.params.id, comment: foundComment});
         }     
      });
 });
@@ -65,7 +65,7 @@ router.put("/:comment_id", middleware.checkCommentsOwnership, function(req, res)
         if(err){
             res.redirect("back");
         } else {
-            res.redirect("/campgrounds/" + req.params.id);
+            res.redirect("/pokestops/" + req.params.id);
         }
     });
 });
@@ -76,7 +76,7 @@ router.delete("/:comment_id", middleware.checkCommentsOwnership, function(req, r
         if(err){
             res.redirect("back");
         } else {
-            res.redirect("/campgrounds/" + req.params.id);
+            res.redirect("/pokestops/" + req.params.id);
         }    
     });        
 });

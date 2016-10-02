@@ -1,9 +1,9 @@
 <% include ../partials/header %>
 <div class="container">
     <div class="row">
-        <h1 class="text-center">Edit <%= campground.name %></h1>
+        <h1 class="text-center">Edit <%= pokestop.name %></h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=PUT" method="post">
+            <form action="/pokestops/<%= pokestop._id %>/comments/<%= comment._id %>?_method=PUT" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" name="comment[text]" value="<%= comment.text %>">
                 </div>
@@ -11,7 +11,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/campgrounds">Go Back</a>
+            <a href="/pokestops">Go Back</a>
         </div>
     </div>
 </div>

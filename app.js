@@ -3,28 +3,26 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     flash = require("connect-flash"),
-    Campground = require("./models/campground"),
+    Pokestop = require("./models/pokestop"),
     Comment = require("./models/comment"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
-    User = require("./models/user"),
-    seedDB = require("./seeds");
+    User = require("./models/user");
     
 // requiring routes
 var commentRoutes = require("./routes/comments"),
-    campgroundRoutes = require("./routes/campground"),
+    pokestopRoutes = require("./routes/pokestop"),
     authRoutes = require("./routes/index");
 
-mongoose.connect(process.env.DATABASEURL);
-// mongoose.connect("mongodb://admin:password@ds029456.mlab.com:29456/yelpcamp");
+var url = process.env.DATABASEURL || "mongodb://localhost/pokestop"
+mongoose.connect(url);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-// seedDB();
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -46,8 +44,8 @@ app.use(function(req, res, next){
 });
 
 app.use("/", authRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
-app.use("/campgrounds", campgroundRoutes);
+app.use("/pokestops/:id/comments", commentRoutes);
+app.use("/pokestops", pokestopRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Connected");
